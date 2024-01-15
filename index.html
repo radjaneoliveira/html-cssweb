@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,7 +7,6 @@
     <title>Radjaneoliveira</title>
 
     <style>
-        /* Estilos comuns para todos os dispositivos */
         body {
             margin: 0;
             display: flex;
@@ -31,9 +29,13 @@
             opacity: 0.8;
         }
 
+        audio {
+            display: none;
+        }
+
         h1 {
             text-align: center;
-            color: #5e1c1c;
+            color: #680000;
             font-size: 2em;
             white-space: nowrap;
             overflow: hidden;
@@ -50,7 +52,7 @@
 
         p {
             text-align: center;
-            color: #080808;
+            color: #000000;
             font-size: 1.5em;
             margin-top: 20px;
         }
@@ -168,44 +170,50 @@
             margin-top: 20px;
             border-radius: 5px;
             transition: background-color 0.3s;
+            position: relative;
+        }
+
+        .saiba-mais-btn::after {
+            content: '\2023'; /* Unicode para ponto pequeno */
+            margin-left: 5px;
         }
 
         .saiba-mais-btn:hover {
             background-color: #333;
         }
 
-        /* Regras de mídia para tablets e celulares */
-        @media only screen and (max-width: 768px) {
-            h1 {
-                font-size: 1.5em;
-            }
-
-            .flip-box {
-                width: 200px;
-                height: 200px;
-            }
-
-            .flip-box-front,
-            .flip-box-back {
-                font-size: 1em;
-            }
-
-            .saiba-mais-btn {
-                font-size: 1em;
-            }
+        /* Adicione a tag de contagem */
+        #contador {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            background-color: #fff;
+            padding: 5px;
+            border-radius: 5px;
+            font-size: 0.8em;
         }
 
-        /* Adicione mais regras de mídia conforme necessário para outros dispositivos */
-
+        #contadorNumero::after {
+            content: '\2022'; /* Unicode para ponto pequeno */
+            margin-left: 5px;
+        }
     </style>
 </head>
-
 <body>
 
-    <audio autoplay loop>
-        <source src="WhatsApp Audio 2024-01-14 at 16.29.15 (1).mpeg" type="audio/mp3">
-        Seu navegador não suporta a tag de áudio.
-    </audio>
+   
+   <!-- Reprodução automática de música em loop -->
+<audio controls autoplay loop muted style="display: none;">
+    <source src="audio.mpeg" type="audio/mp3">
+    Seu navegador não suporta o elemento de áudio.
+</audio>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelector('audio').play();
+    });
+</script>
+
 
     <video autoplay loop muted>
         <source src="WhatsApp Video 2024-01-14 at 16.28.46.mp4" type="video/mp4">
@@ -235,6 +243,31 @@
 
     <a href="saibamais.html" class="saiba-mais-btn">Saiba Mais</a>
 
-</body>
+    <!-- Adicione a tag de contagem -->
+    <div id="contador">
+        Visitantes: <span id="contadorNumero">0</span>
+    </div>
 
+    <script>
+        // Função para obter e atualizar a contagem de visitantes
+        function atualizarContador() {
+            let contadorAtual = localStorage.getItem('contadorVisitas');
+
+            // Se contadorAtual não existir, é a primeira visita, então inicialize com 1
+            if (!contadorAtual) {
+                contadorAtual = 1;
+            } else {
+                contadorAtual = parseInt(contadorAtual) + 1;
+            }
+
+            // Atualize o contador na interface e armazene no localStorage
+            document.getElementById('contadorNumero').innerText = contadorAtual;
+            localStorage.setItem('contadorVisitas', contadorAtual.toString());
+        }
+
+        // Chame a função quando a página carregar
+        document.addEventListener('DOMContentLoaded', atualizarContador);
+    </script>
+
+</body>
 </html>
