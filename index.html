@@ -8,6 +8,7 @@
     <title>Radjaneoliveira</title>
 
     <style>
+        /* Estilos comuns para todos os dispositivos */
         body {
             margin: 0;
             display: flex;
@@ -15,7 +16,7 @@
             justify-content: center;
             flex-direction: column;
             height: 100vh;
-            overflow: hidden; /* Evita barras de rolagem */
+            overflow: hidden;
             position: relative;
         }
 
@@ -32,7 +33,7 @@
 
         h1 {
             text-align: center;
-            color: #5e1c1c; /* Alterado para branco */
+            color: #5e1c1c;
             font-size: 2em;
             white-space: nowrap;
             overflow: hidden;
@@ -43,13 +44,13 @@
         .loading-line {
             width: 50px;
             height: 3px;
-            background-color: #ffffff; /* Alterado para branco */
+            background-color: #ffffff;
             animation: loading 1.5s infinite;
         }
 
         p {
             text-align: center;
-            color: #080808; /* Alterado para branco */
+            color: #080808;
             font-size: 1.5em;
             margin-top: 20px;
         }
@@ -68,11 +69,11 @@
             height: 100%;
             transform-style: preserve-3d;
             transition: transform 0.5s;
-            animation: autoFlip 4s infinite; /* Adiciona a animação de flip automático */
+            animation: autoFlip 4s infinite;
         }
 
         .flip-box:hover .flip-box-inner {
-            animation: none; /* Pára a animação de flip quando o mouse está sobre ele */
+            animation: none;
         }
 
         .flip-box-front,
@@ -85,7 +86,7 @@
         }
 
         .flip-box-front {
-            background: rgba(255, 255, 255, 0.5); /* Branco transparente */
+            background: rgba(255, 255, 255, 0.5);
             color: #000;
             display: flex;
             align-items: center;
@@ -95,7 +96,7 @@
         }
 
         .flip-box-back {
-            background: rgba(0, 0, 0, 0.5); /* Preto transparente */
+            background: rgba(0, 0, 0, 0.5);
             color: #fff;
             display: flex;
             align-items: center;
@@ -141,11 +142,10 @@
             }
         }
 
-        /* Confetes CSS */
         .confetti {
             width: 10px;
             height: 10px;
-            background-color: #f00; /* Cor do confete (vermelho no exemplo) */
+            background-color: #f00;
             position: absolute;
             animation: fall 1s linear infinite;
         }
@@ -159,9 +159,8 @@
             }
         }
 
-        /* Botão Saiba Mais */
         .saiba-mais-btn {
-            background-color: #000; /* Cor preta */
+            background-color: #000;
             color: #fff;
             padding: 10px 20px;
             font-size: 1.2em;
@@ -172,34 +171,53 @@
         }
 
         .saiba-mais-btn:hover {
-            background-color: #333; /* Cor mais escura ao passar o mouse */
+            background-color: #333;
         }
+
+        /* Regras de mídia para tablets e celulares */
+        @media only screen and (max-width: 768px) {
+            h1 {
+                font-size: 1.5em;
+            }
+
+            .flip-box {
+                width: 200px;
+                height: 200px;
+            }
+
+            .flip-box-front,
+            .flip-box-back {
+                font-size: 1em;
+            }
+
+            .saiba-mais-btn {
+                font-size: 1em;
+            }
+        }
+
+        /* Adicione mais regras de mídia conforme necessário para outros dispositivos */
+
     </style>
 </head>
+
 <body>
 
-    <!-- Adicione o áudio -->
     <audio autoplay loop>
         <source src="WhatsApp Audio 2024-01-14 at 16.29.15 (1).mpeg" type="audio/mp3">
         Seu navegador não suporta a tag de áudio.
     </audio>
 
-    <!-- Adicione o vídeo -->
     <video autoplay loop muted>
         <source src="WhatsApp Video 2024-01-14 at 16.28.46.mp4" type="video/mp4">
         Seu navegador não suporta a tag de vídeo.
     </video>
 
-    <!-- Adicione o título -->
     <h1>Portfolio In Progress</h1>
 
-    <!-- Adicione a linha de carregamento -->
     <div class="loading-line"></div>
 
-    <!-- Adicione o texto -->
     <p>Precisa de um site Atual, Dinâmico e Atraente?</p>
 
-    <!-- Flip Box com a mensagem de parabéns -->
     <div class="flip-box">
         <div class="flip-box-inner">
             <div class="flip-box-front">
@@ -211,15 +229,12 @@
         </div>
     </div>
 
-    <!-- Confetes animados -->
     <div class="confetti" style="left: 10%;"></div>
     <div class="confetti" style="left: 20%;"></div>
     <div class="confetti" style="left: 30%;"></div>
-    <!-- Adicione mais confetes conforme necessário -->
 
-    <!-- Botão Saiba Mais -->
     <a href="saibamais.html" class="saiba-mais-btn">Saiba Mais</a>
 
-    <!-- Outro conteúdo da sua página pode vir aqui -->
 </body>
+
 </html>
