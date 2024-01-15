@@ -170,44 +170,39 @@
             margin-top: 20px;
             border-radius: 5px;
             transition: background-color 0.3s;
+            position: relative;
+        }
+
+        .saiba-mais-btn::after {
+            content: '\2023'; /* Unicode para ponto pequeno */
+            margin-left: 5px;
         }
 
         .saiba-mais-btn:hover {
             background-color: #333;
         }
-    </style>
 
-    <style>
-        /* Estilos adicionais para dispositivos menores */
-        @media screen and (max-width: 600px) {
-            h1 {
-                font-size: 1.5em;
-            }
+        /* Adicione a tag de contagem */
+        #contador {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            background-color: #fff;
+            padding: 5px;
+            border-radius: 5px;
+            font-size: 0.8em;
+        }
 
-            p {
-                font-size: 1em;
-            }
-
-            .flip-box {
-                width: 200px;
-                height: 200px;
-            }
-
-            .flip-box-front,
-            .flip-box-back {
-                font-size: 1em;
-            }
-
-            .saiba-mais-btn {
-                font-size: 1em;
-            }
+        #contadorNumero::after {
+            content: '\2022'; /* Unicode para ponto pequeno */
+            margin-left: 5px;
         }
     </style>
 </head>
 <body>
 
     <audio autoplay loop>
-        <source src="WhatsApp Audio 2024-01-14 at 16.29.15 (1).mpeg" type="audio/mpeg">
+        <source src="WhatsApp Audio 2024-01-14 at 16.29.15 (1).mpeg" type="audio/mp3">
         Seu navegador não suporta a tag de áudio.
     </audio>
 
@@ -238,6 +233,32 @@
     <div class="confetti" style="left: 30%;"></div>
 
     <a href="saibamais.html" class="saiba-mais-btn">Saiba Mais</a>
+
+    <!-- Adicione a tag de contagem -->
+    <div id="contador">
+        Visitantes: <span id="contadorNumero">0</span>
+    </div>
+
+    <script>
+        // Função para obter e atualizar a contagem de visitantes
+        function atualizarContador() {
+            let contadorAtual = localStorage.getItem('contadorVisitas');
+
+            // Se contadorAtual não existir, é a primeira visita, então inicialize com 1
+            if (!contadorAtual) {
+                contadorAtual = 1;
+            } else {
+                contadorAtual = parseInt(contadorAtual) + 1;
+            }
+
+            // Atualize o contador na interface e armazene no localStorage
+            document.getElementById('contadorNumero').innerText = contadorAtual;
+            localStorage.setItem('contadorVisitas', contadorAtual.toString());
+        }
+
+        // Chame a função quando a página carregar
+        document.addEventListener('DOMContentLoaded', atualizarContador);
+    </script>
 
 </body>
 </html>
