@@ -106,20 +106,20 @@
     <!-- Cronômetro -->
     <div id="cronometro">Freebie encerra em:</div>
 
-    <audio autoplay loop>
+    <audio id="audio" autoplay loop>
         <source src="WhatsApp Audio 2024-01-14 at 16.29.15 (1).mpeg" type="audio/mp3">
         Seu navegador não suporta o elemento de áudio.
     </audio>
 
     <div class="left-column">
         <p>
-            <p1> SEJA BEM VINDO(A) <P>Você está convidado a aproveitar uma oferta única!<p> site gratuito, criado por mim, Radjane Oliveira, <P></P>estudante de Engenharia da Computação e aspirante a Web Designer.
+            <p1> SEJA BEM VINDO(A) <P>Você Está convidado a Aproveitar Uma Oferta Única!<p> Site Gratuito, Criado Por Mim, Radjane Oliveira! <P></P>Estudante de Engenharia da Computação e Aspirante a Web Designer.
 
-            <p></p>Esta é uma iniciativa especial para as primeiras 10 pessoas que entrarem em contato. <P></P>Ao aceitar este presente, você concorda que o site desenvolvido <P></P>será utilizado como parte do meu portfólio, exibindo meu talento e habilidades em design de sites.<P></P>
+            <p></p>Esta é uma Iniciativa Especial Para as Primeiras 10 Pessoas Que Entrarem Em Contato. <P></P>Ao Aceitar Este Presente, Você Concorda Que o site Desenvolvido <P></P>Será Utilizado Como Parte do Meu Portfólio, Exibindo Meu Talento e Habilidades em Design de Sites.<P></P>
 
             <P>
 
-            </P> Para que possamos iniciar, é necessário que você possua um domínio e uma hospedagem.<P></P> Esses elementos são essenciais para garantir a visibilidade e funcionalidade do seu novo site.
+            </P> Para que Possamos Iniciar, é Necessário Que Você Possua Um Domínio e Uma Hospedagem.<P></P> Esses Elementos são Essenciais Para Garantir a Visibilidade e Funcionalidade do Seu Novo Site.
         </p>
     </div>
 
@@ -138,9 +138,17 @@
     </div>
 
     <script>
-        // Configura a data final da promoção (7 dias a partir de hoje)
-        var dataFinal = new Date();
-        dataFinal.setDate(dataFinal.getDate() + 7);
+        // Recupera a data final do armazenamento local (se existir)
+        var dataFinal = localStorage.getItem('dataFinal');
+
+        // Se não existir, configura a data final para 20-01-2024
+        if (!dataFinal) {
+            dataFinal = new Date('2024-01-20');
+            localStorage.setItem('dataFinal', dataFinal);
+        } else {
+            // Converte a string para um objeto de data
+            dataFinal = new Date(dataFinal);
+        }
 
         // Atualiza o cronômetro a cada segundo
         var cronometro = setInterval(function () {
@@ -157,7 +165,7 @@
             // Se a contagem regressiva terminar, exibe uma mensagem e limpa o cronômetro
             if (diferenca < 0) {
                 clearInterval(cronometro);
-                document.getElementById("cronometro").innerHTML = "Limitado, encerra em";
+                document.getElementById("cronometro").innerHTML = "Promoção encerrada";
             }
         }, 1000);
     </script>
