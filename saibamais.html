@@ -33,7 +33,7 @@
         #cronometro {
             font-size: 1.5em; /* Aumentado o tamanho da fonte do cronômetro */
             color: #fff; /* Cor branca */
-            margin-bottom: 20px; /* Adicionado espaçamento abaixo do cronômetro */
+            margin-bottom: 10px; /* Adicionado espaçamento abaixo do cronômetro */
         }
 
         .left-column {
@@ -42,7 +42,7 @@
             background-color: rgba(255, 255, 255, 0.3);
             padding: 20px;
             border-radius: 10px;
-            margin-top: 50px;
+            margin-top: 10px; /* Reduzido o espaçamento acima da coluna */
             backdrop-filter: blur(3px);
             font-weight: bold;
             position: relative;
@@ -53,7 +53,7 @@
             display: flex;
             justify-content: space-between; /* Mantém o espaço entre os botões */
             width: 80%;
-            margin-top: 20px;
+            margin-top: 10px; /* Reduzido o espaçamento acima dos botões */
         }
 
         button {
@@ -104,7 +104,12 @@
 <body>
 
     <!-- Cronômetro -->
-    <div id="cronometro">Promoção encerra em:</div>
+    <div id="cronometro">Freebie encerra em:</div>
+
+    <audio autoplay loop>
+        <source src="WhatsApp Audio 2024-01-14 at 16.29.15 (1).mpeg" type="audio/mp3">
+        Seu navegador não suporta o elemento de áudio.
+    </audio>
 
     <div class="left-column">
         <p>
@@ -112,9 +117,9 @@
 
             <p></p>Esta é uma iniciativa especial para as primeiras 10 pessoas que entrarem em contato. <P></P>Ao aceitar este presente, você concorda que o site desenvolvido <P></P>será utilizado como parte do meu portfólio, exibindo meu talento e habilidades em design de sites.<P></P>
 
-           <P>
+            <P>
 
-           </P> Para que possamos iniciar, é necessário que você possua um domínio e uma hospedagem.<P></P> Esses elementos são essenciais para garantir a visibilidade e funcionalidade do seu novo site.
+            </P> Para que possamos iniciar, é necessário que você possua um domínio e uma hospedagem.<P></P> Esses elementos são essenciais para garantir a visibilidade e funcionalidade do seu novo site.
         </p>
     </div>
 
@@ -131,12 +136,6 @@
             </div>
         </div>
     </div>
-
-    <!-- Reprodução automática de música em loop -->
-    <audio controls autoplay loop style="display: none;">
-        <source src="WhatsApp Audio 2024-01-14 at 16.29.15 (1).mpeg" type="audio/mp3">
-        Seu navegador não suporta o elemento de áudio.
-    </audio>
 
     <script>
         // Configura a data final da promoção (7 dias a partir de hoje)
