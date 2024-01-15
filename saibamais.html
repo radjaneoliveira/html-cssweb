@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oportunidade Especial</title>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: 'Arial', sans-serif;
+            background: url('setup.jpg') center/cover;
+            text-align: center;
+            color: #141414;
+        }
+
+        p {
+            background-color: rgba(255, 255, 255, 0.3);
+            font-size: 1.2em;
+            line-height: 1.8;
+            padding: 20px;
+            border-radius: 10px;
+            display: inline-block;
+            margin-top: 50px;
+            backdrop-filter: blur(3px);
+            font-weight: bold;
+            position: relative;
+            z-index: 2; /* Para ficar acima do cronômetro */
+        }
+
+        button {
+            background-color: #25d366;
+            color: #070707;
+            padding: 15px 30px; /* Tamanho do botão do WhatsApp */
+            font-size: 1.2em;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 20px;
+        }
+
+        button:hover {
+            background-color: #128C7E;
+        }
+
+        .back-button {
+            background-color: #000000;
+            color: #ffffff;
+            padding: 10px 20px;
+            font-size: 1.2em;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+        }
+
+        .back-button:hover {
+            background-color: #333333;
+        }
+
+        /* Adiciona um estilo para o cronômetro */
+        #cronometro {
+            font-size: 2em;
+            margin-top: 20px;
+            font-weight: bold;
+            color: #fcf7f7; /* Vermelho */
+        }
+
+        /* Adiciona estilo para a caixa do WhatsApp */
+        .whatsapp-box {
+            background-color: #25d366;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            display: inline-block;
+            position: relative;
+            z-index: 1; /* Para ficar abaixo do texto e do cronômetro */
+        }
+
+        /* Adiciona estilo para o link do WhatsApp */
+        .whatsapp-link {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+    <p>
+        Você está convidado(a) a aproveitar uma oferta única: um site totalmente gratuito, criado por mim, Radjane Oliveira, estudante de Engenharia da Computação e aspirante a Web Designer.
+
+        Esta é uma iniciativa especial para as primeiras 10 pessoas que entrarem em contato. Ao aceitar este presente, você concorda que o site desenvolvido será utilizado como parte do meu portfólio, exibindo meu talento e habilidades em design de sites.
+
+        Para que possamos iniciar, é necessário que você possua um domínio e uma hospedagem. Esses elementos são essenciais para garantir a visibilidade e funcionalidade do seu novo site.
+
+        Estou empolgada para criar algo incrível para você e, ao mesmo tempo, aprimorar minhas habilidades como profissional de design de sites. Entre em contato o mais rápido possível para garantir a sua vaga nesta oportunidade especial!
+    </p>
+
+    <!-- Cronômetro -->
+    <div id="cronometro"></div>
+
+    <!-- Caixa do WhatsApp -->
+    <div class="whatsapp-box">
+        <div>
+            <a href="https://wa.me/557491226397" class="whatsapp-link" target="_blank">Contato WhatsApp</a>
+        </div>
+    </div>
+
+    <!-- Botão Voltar -->
+    <button class="back-button" onclick="window.history.back();">
+        Voltar
+    </button>
+
+    <script>
+        // Configura a data final da promoção (7 dias a partir de hoje)
+        var dataFinal = new Date();
+        dataFinal.setDate(dataFinal.getDate() + 7);
+
+        // Atualiza o cronômetro a cada segundo
+        var cronometro = setInterval(function () {
+            var agora = new Date().getTime();
+            var diferenca = dataFinal - agora;
+
+            var dias = Math.floor(diferenca / (1000 * 60 * 60 * 24));
+            var horas = Math.floor((diferenca % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var minutos = Math.floor((diferenca % (1000 * 60 * 60)) / (1000 * 60));
+            var segundos = Math.floor((diferenca % (1000 * 60)) / 1000);
+
+            document.getElementById("cronometro").innerHTML = "Promoção encerra em: " + dias + "d " + horas + "h " + minutos + "m " + segundos + "s ";
+
+            // Se a contagem regressiva terminar, exibe uma mensagem e limpa o cronômetro
+            if (diferenca < 0) {
+                clearInterval(cronometro);
+                document.getElementById("cronometro").innerHTML = "Promoção encerrada!";
+            }
+        }, 1000);
+    </script>
+
+</body>
+
+</html>
