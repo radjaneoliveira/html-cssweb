@@ -12,18 +12,30 @@
             margin: 0;
             padding: 20px;
             font-family: 'Arial', sans-serif;
-            background: url('setup.jpg') center/cover;
             text-align: center;
             color: #141414;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: url('setup.jpg') center/cover;
+            animation: backgroundMove 60s linear infinite; /* Adiciona movimento em loop de 60 segundos */
         }
 
-        p {
+        @keyframes backgroundMove {
+            0% {
+                background-position: 0 0;
+            }
+            100% {
+                background-position: 100% 100%;
+            }
+        }
+
+        .left-column {
+            width: 80%;
+            text-align: left;
             background-color: rgba(255, 255, 255, 0.3);
-            font-size: 1.2em;
-            line-height: 1.8;
             padding: 20px;
             border-radius: 10px;
-            display: inline-block;
             margin-top: 50px;
             backdrop-filter: blur(3px);
             font-weight: bold;
@@ -31,95 +43,92 @@
             z-index: 2; /* Para ficar acima do cronômetro */
         }
 
+        .bottom-buttons {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            width: 80%;
+            margin-top: 20px;
+        }
+
         button {
-            background-color: #25d366;
-            color: #070707;
-            padding: 15px 30px; /* Tamanho do botão do WhatsApp */
-            font-size: 1.2em;
+            background-color: #640909;
+            color: #000000;
+            padding: 10px 20px; /* Tamanho menor do botão do WhatsApp */
+            font-size: 1em; /* Tamanho menor do texto do botão */
             border: none;
             border-radius: 5px;
             cursor: pointer;
             transition: background-color 0.3s;
-            margin-top: 20px;
         }
 
         button:hover {
-            background-color: #128C7E;
+            background-color: #8c1a12;
+        }
+
+        .whatsapp-box {
+            background-color: #131212; /* Cor preta */
+            padding: 10px;
+            border-radius: 10px;
+            animation: shake 0.5s infinite; /* Adiciona um efeito de tremor */
+        }
+
+        .whatsapp-link {
+            color: #83ff10; /* Cor branca */
+            text-decoration: none;
+            font-size: 1em; /* Tamanho menor do texto do botão */
+            font-weight: bold;
+            border-bottom: none; /* Remove a linha sublinhada */
         }
 
         .back-button {
-            background-color: #000000;
-            color: #ffffff;
-            padding: 10px 20px;
-            font-size: 1.2em;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
+            font-weight: bold; /* Deixa a letra mais grossa */
         }
 
-        .back-button:hover {
-            background-color: #333333;
-        }
-
-        /* Adiciona um estilo para o cronômetro */
-        #cronometro {
-            font-size: 2em;
-            margin-top: 20px;
-            font-weight: bold;
-            color: #fcf7f7; /* Vermelho */
-        }
-
-        /* Adiciona estilo para a caixa do WhatsApp */
-        .whatsapp-box {
-            background-color: #25d366;
-            padding: 20px;
-            border-radius: 10px;
-            margin-top: 20px;
-            display: inline-block;
-            position: relative;
-            z-index: 1; /* Para ficar abaixo do texto e do cronômetro */
-        }
-
-        /* Adiciona estilo para o link do WhatsApp */
-        .whatsapp-link {
-            color: #ffffff;
-            text-decoration: none;
-            font-size: 1.2em;
-            font-weight: bold;
+        @keyframes shake {
+            0%, 100% {
+                transform: translateX(0);
+            }
+            50% {
+                transform: translateX(-5px);
+            }
         }
     </style>
 </head>
 
 <body>
 
-    <p>
-        Você está convidado(a) a aproveitar uma oferta única: um site totalmente gratuito, criado por mim, Radjane Oliveira, estudante de Engenharia da Computação e aspirante a Web Designer.
+    <div class="left-column">
+        <p>
+            <p1> SEJA BEM VINDO(A) <P>Você está convidado(a) a aproveitar uma oferta única!<p> site gratuito, criado por mim, Radjane Oliveira, <P></P>estudante de Engenharia da Computação e aspirante a Web Designer.
 
-        Esta é uma iniciativa especial para as primeiras 10 pessoas que entrarem em contato. Ao aceitar este presente, você concorda que o site desenvolvido será utilizado como parte do meu portfólio, exibindo meu talento e habilidades em design de sites.
+            <p></p>Esta é uma iniciativa especial para as primeiras 10 pessoas que entrarem em contato. <P></P>Ao aceitar este presente, você concorda que o site desenvolvido <P></P>será utilizado como parte do meu portfólio, exibindo meu talento e habilidades em design de sites.<P></P>
 
-        Para que possamos iniciar, é necessário que você possua um domínio e uma hospedagem. Esses elementos são essenciais para garantir a visibilidade e funcionalidade do seu novo site.
+           <P>
 
-        Estou empolgada para criar algo incrível para você e, ao mesmo tempo, aprimorar minhas habilidades como profissional de design de sites. Entre em contato o mais rápido possível para garantir a sua vaga nesta oportunidade especial!
-    </p>
+           </P> Para que possamos iniciar, é necessário que você possua um domínio e uma hospedagem.<P></P> Esses elementos são essenciais para garantir a visibilidade e funcionalidade do seu novo site.
+        </p>
+    </div>
 
-    <!-- Cronômetro -->
-    <div id="cronometro"></div>
+    <div class="bottom-buttons">
+        <!-- Botão Voltar -->
+        <button class="back-button" onclick="window.history.back();">
+            Voltar
+        </button>
 
-    <!-- Caixa do WhatsApp -->
-    <div class="whatsapp-box">
-        <div>
-            <a href="https://wa.me/557491226397" class="whatsapp-link" target="_blank">Contato WhatsApp</a>
+        <!-- Caixa do WhatsApp -->
+        <div class="whatsapp-box">
+            <div>
+                <a href="https://wa.me/557491226397" class="whatsapp-link" target="_blank">Contato WhatsApp</a>
+            </div>
         </div>
     </div>
 
-    <!-- Botão Voltar -->
-    <button class="back-button" onclick="window.history.back();">
-        Voltar
-    </button>
+    <!-- Reprodução automática de música em loop -->
+    <audio controls autoplay loop style="display: none;">
+        <source src="sua-musica.mp3" type="audio/mp3">
+        Seu navegador não suporta o elemento de áudio.
+    </audio>
 
     <script>
         // Configura a data final da promoção (7 dias a partir de hoje)
@@ -141,7 +150,7 @@
             // Se a contagem regressiva terminar, exibe uma mensagem e limpa o cronômetro
             if (diferenca < 0) {
                 clearInterval(cronometro);
-                document.getElementById("cronometro").innerHTML = "Promoção encerrada!";
+                document.getElementById("cronometro").innerHTML = "Limitado, encerra em";
             }
         }, 1000);
     </script>
