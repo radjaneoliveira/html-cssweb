@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SEMINÁRIO/ UNIVASF 2024</title>
+    <title>Acesso à Câmera</title>
     <style>
         /* Estilos simples para a página */
         body {
@@ -11,74 +11,38 @@
             text-align: center;
             margin-top: 50px;
         }
-        .remoteVideo {
+        video {
             width: 100%;
             max-width: 600px;
-            margin: 0 auto 20px;
+            margin: 0 auto;
         }
     </style>
 </head>
 <body>
-    <h1>ENGENHARIA DA COMPUTAÇÃO / UNIVASF 2024</h1>
-    <div id="remoteVideos"></div>
+    <h1>Acesso à Câmera</h1>
+    <!-- Elemento de vídeo para exibir a saída da câmera -->
+    <video id="videoElement" autoplay playsinline></video>
 
-    <script src="https://cdn.socket.io/socket.io-3.1.3.min.js"></script>
     <script>
-        const socket = io();
-
-        socket.on('connectedUsers', connectedUsers => {
-            const remoteVideos = document.getElementById('remoteVideos');
-            remoteVideos.innerHTML = '';
-
-            connectedUsers.forEach(userId => {
-                if (userId !== socket.id) {
-                    const remoteVideo = document.createElement('video');
-                    remoteVideo.autoplay = true;
-                    remoteVideo.className = 'remoteVideo';
-                    remoteVideos.appendChild(remoteVideo);
-
-                    // Receber quadros de vídeo dos outros usuários
-                    socket.on('receiveFrame', ({ userId: senderId, frameData }) => {
-                        if (senderId === userId) {
-                            // Atualizar o elemento de vídeo com o novo quadro recebido
-                            const videoBlob = new Blob([frameData], { type: 'video/webm' });
-                            const videoUrl = URL.createObjectURL(videoBlob);
-                            remoteVideo.src = videoUrl;
-                        }
-                    });
-                }
-            });
-        });
-
-        // Função para capturar e enviar quadros de vídeo para o servidor
-        async function sendFrame() {
-            const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-            const videoTrack = stream.getVideoTracks()[0];
-            const mediaRecorder = new MediaRecorder(stream);
-
-            mediaRecorder.ondataavailable = event => {
-                if (event.data.size > 0) {
-                    // Enviar o quadro de vídeo para o servidor
-                    socket.emit('newFrame', event.data);
-                }
-            };
-
-            mediaRecorder.start();
-
-            // Parar de gravar após 10 segundos (apenas para fins de exemplo)
-            setTimeout(() => {
-                mediaRecorder.stop();
-                videoTrack.stop();
-            }, 10000);
+        // JavaScript para solicitar permissão ao usuário para acessar a câmera
+        async function requestCameraPermission() {
+            try {
+                // Solicitar permissão ao usuário para acessar a câmera
+                const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+                const videoElement = document.getElementById('videoElement');
+                videoElement.srcObject = stream;
+            } catch (err) {
+                // Lidar com erros, como permissão negada pelo usuário
+                console.error('Erro ao acessar a câmera:', err);
+            }
         }
 
-        // Chamada da função de envio de quadros de vídeo quando a página é carregada
+        // Chamada da função de solicitação de permissão ao usuário quando a página é carregada
         window.onload = () => {
-            sendFrame();
+            requestCameraPermission();
         };
     </script>
 </body>
 </html>
 
-    
-   
+               
