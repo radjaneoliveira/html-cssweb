@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,16 +21,19 @@
 <body>
     <h1>ENGEHARIA DA COMPUTAÇÃO / UNIVASF 2024</h1>
     <!-- Elemento de vídeo para exibir a saída da câmera -->
-    <video id="videoElement" autoplay playsinline></video>
+    <video id="localVideo" autoplay playsinline></video>
+    <div id="remoteVideos"></div>
 
     <script>
-        // JavaScript para solicitar permissão ao usuário para acessar a câmera
+        // Função para solicitar permissão ao usuário para acessar a câmera
         async function requestCameraPermission() {
             try {
                 // Solicitar permissão ao usuário para acessar a câmera
                 const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-                const videoElement = document.getElementById('videoElement');
-                videoElement.srcObject = stream;
+                const localVideo = document.getElementById('localVideo');
+                localVideo.srcObject = stream;
+
+                return stream;
             } catch (err) {
                 // Lidar com erros, como permissão negada pelo usuário
                 console.error('Erro ao acessar a câmera:', err);
@@ -39,10 +41,33 @@
         }
 
         // Chamada da função de solicitação de permissão ao usuário quando a página é carregada
-        window.onload = () => {
-            requestCameraPermission();
+        window.onload = async () => {
+            const localStream = await requestCameraPermission();
+            if (localStream) {
+                // Iniciar a conexão peer-to-peer usando WebRTC
+                const peerConnection = new RTCPeerConnection();
+                localStream.getTracks().forEach(track => {
+                    peerConnection.addTrack(track, localStream);
+                });
+
+                // Lidar com o evento de recebimento de uma nova faixa de mídia (vídeo)
+                peerConnection.ontrack = event => {
+                    const remoteVideo = document.createElement('video');
+                    remoteVideo.autoplay = true;
+                    document.getElementById('remoteVideos').appendChild(remoteVideo);
+                    remoteVideo.srcObject = event.streams[0];
+                };
+
+                // Gerar uma oferta para iniciar a comunicação
+                const offer = await peerConnection.createOffer();
+                await peerConnection.setLocalDescription(offer);
+
+                // Enviar a oferta para o outro participante (pode ser feito via WebSocket)
+                // Aqui você precisará implementar a lógica para enviar a oferta para o outro participante
+            }
         };
     </script>
 </body>
 </html>
+
 
