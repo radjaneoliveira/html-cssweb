@@ -1,273 +1,46 @@
 <!DOCTYPE html>
-<html lang="PT">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Radjaneoliveira</title>
-
+    <title>Acesso à Câmera</title>
     <style>
+        /* Estilos simples para a página */
         body {
-            margin: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            height: 100vh;
-            overflow: hidden;
-            position: relative;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
         }
-
         video {
-            position: fixed;
-            top: 0;
-            left: 0;
             width: 100%;
-            height: 100%;
-            object-fit: cover;
-            z-index: -1;
-            opacity: 0.8;
-        }
-
-        audio {
-            display: none;
-        }
-
-        h1 {
-            text-align: center;
-            color: #680000;
-            font-size: 2em;
-            white-space: nowrap;
-            overflow: hidden;
-            animation: pulse 1.5s infinite;
-            margin-bottom: 20px;
-        }
-
-        .loading-line {
-            width: 50px;
-            height: 3px;
-            background-color: #ffffff;
-            animation: loading 1.5s infinite;
-        }
-
-        p {
-            text-align: center;
-            color: #000000;
-            font-size: 1.5em;
-            margin-top: 20px;
-        }
-
-        .flip-box {
-            background-color: transparent;
-            width: 300px;
-            height: 300px;
-            perspective: 1000px;
-            margin: 20px;
-            border-radius: 50%;
-        }
-
-        .flip-box-inner {
-            width: 100%;
-            height: 100%;
-            transform-style: preserve-3d;
-            transition: transform 0.5s;
-            animation: autoFlip 4s infinite;
-        }
-
-        .flip-box:hover .flip-box-inner {
-            animation: none;
-        }
-
-        .flip-box-front,
-        .flip-box-back {
-            width: 100%;
-            height: 100%;
-            position: absolute;
-            backface-visibility: hidden;
-            border-radius: 50%;
-        }
-
-        .flip-box-front {
-            background: rgba(255, 255, 255, 0.5);
-            color: #000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5em;
-            font-weight: bold;
-        }
-
-        .flip-box-back {
-            background: rgba(0, 0, 0, 0.5);
-            color: #fff;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5em;
-            font-weight: bold;
-            transform: rotateY(180deg);
-        }
-
-        @keyframes pulse {
-            0% {
-                transform: scale(1);
-            }
-            50% {
-                transform: scale(1.1);
-            }
-            100% {
-                transform: scale(1);
-            }
-        }
-
-        @keyframes loading {
-            0% {
-                width: 50px;
-            }
-            50% {
-                width: 100%;
-            }
-            100% {
-                width: 50px;
-            }
-        }
-
-        @keyframes autoFlip {
-            0% {
-                transform: rotateY(0deg);
-            }
-            50% {
-                transform: rotateY(180deg);
-            }
-            100% {
-                transform: rotateY(0deg);
-            }
-        }
-
-        .confetti {
-            width: 10px;
-            height: 10px;
-            background-color: #f00;
-            position: absolute;
-            animation: fall 1s linear infinite;
-        }
-
-        @keyframes fall {
-            0% {
-                transform: translateY(0);
-            }
-            100% {
-                transform: translateY(100vh);
-            }
-        }
-
-        .saiba-mais-btn {
-            background-color: #000;
-            color: #fff;
-            padding: 10px 20px;
-            font-size: 1.2em;
-            text-decoration: none;
-            margin-top: 20px;
-            border-radius: 5px;
-            transition: background-color 0.3s;
-            position: relative;
-        }
-
-        .saiba-mais-btn::after {
-            content: '\2023'; /* Unicode para ponto pequeno */
-            margin-left: 5px;
-        }
-
-        .saiba-mais-btn:hover {
-            background-color: #333;
-        }
-
-        /* Adicione a tag de contagem */
-        #contador {
-            position: fixed;
-            bottom: 10px;
-            right: 10px;
-            background-color: #fff;
-            padding: 5px;
-            border-radius: 5px;
-            font-size: 0.8em;
-        }
-
-        #contadorNumero::after {
-            content: '\2022'; /* Unicode para ponto pequeno */
-            margin-left: 5px;
+            max-width: 600px;
+            margin: 0 auto;
         }
     </style>
 </head>
 <body>
-
-   
-  <!-- Reprodução automática de música em loop -->
-  <audio controls autoplay loop style="display: none;">
-    <source src="WhatsApp Audio 2024-01-14 at 16.29.15 (1).mpeg" type="audio/mp3">
-    Seu navegador não suporta o elemento de áudio.
-</audio>
-
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        document.querySelector('audio').play();
-    });
-</script>
-
-
-    <video autoplay loop muted>
-        <source src="WhatsApp Video 2024-01-14 at 16.28.46.mp4" type="video/mp4">
-        Seu navegador não suporta a tag de vídeo.
-    </video>
-
-    <h1>Portfolio In Progress</h1>
-
-    <div class="loading-line"></div>
-
-    <p>Precisa de um site Atual, Dinâmico e Atraente?</p>
-
-    <div class="flip-box">
-        <div class="flip-box-inner">
-            <div class="flip-box-front">
-                <p style="color: red; font-weight: bold;">Parabéns!</p>
-            </div>
-            <div class="flip-box-back">
-                <p>Você acaba de ganhar um site Grátis!</p>
-            </div>
-        </div>
-    </div>
-
-    <div class="confetti" style="left: 10%;"></div>
-    <div class="confetti" style="left: 20%;"></div>
-    <div class="confetti" style="left: 30%;"></div>
-
-    <a href="saibamais.html" class="saiba-mais-btn">Saiba Mais</a>
-
-    <!-- Adicione a tag de contagem -->
-    <div id="contador">
-        Visitantes: <span id="contadorNumero">0</span>
-    </div>
+    <h1>Acesso à Câmera</h1>
+    <!-- Elemento de vídeo para exibir a saída da câmera -->
+    <video id="videoElement" autoplay playsinline></video>
 
     <script>
-        // Função para obter e atualizar a contagem de visitantes
-        function atualizarContador() {
-            let contadorAtual = localStorage.getItem('contadorVisitas');
-
-            // Se contadorAtual não existir, é a primeira visita, então inicialize com 1
-            if (!contadorAtual) {
-                contadorAtual = 1;
-            } else {
-                contadorAtual = parseInt(contadorAtual) + 1;
+        // JavaScript para acessar a câmera do dispositivo
+        async function init() {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+                const videoElement = document.getElementById('videoElement');
+                videoElement.srcObject = stream;
+            } catch (err) {
+                console.error('Erro ao acessar a câmera:', err);
             }
-
-            // Atualize o contador na interface e armazene no localStorage
-            document.getElementById('contadorNumero').innerText = contadorAtual;
-            localStorage.setItem('contadorVisitas', contadorAtual.toString());
         }
 
-        // Chame a função quando a página carregar
-        document.addEventListener('DOMContentLoaded', atualizarContador);
+        // Chamada da função de inicialização quando a página é carregada
+        window.onload = () => {
+            init();
+        };
     </script>
-
 </body>
 </html>
+
+  
