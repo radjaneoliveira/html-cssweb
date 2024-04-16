@@ -1,9 +1,10 @@
-<!DOCTYPE html>
+
+  <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Acesso à Câmera</title>
+    <title>SEMINÁRIO/ UNIVASF 2024</title>
     <style>
         /* Estilos simples para a página */
         body {
@@ -19,28 +20,29 @@
     </style>
 </head>
 <body>
-    <h1>Acesso à Câmera</h1>
+    <h1>ENGEHARIA DA COMPUTAÇÃO / UNIVASF 2024</h1>
     <!-- Elemento de vídeo para exibir a saída da câmera -->
     <video id="videoElement" autoplay playsinline></video>
 
     <script>
-        // JavaScript para acessar a câmera do dispositivo
-        async function init() {
+        // JavaScript para solicitar permissão ao usuário para acessar a câmera
+        async function requestCameraPermission() {
             try {
+                // Solicitar permissão ao usuário para acessar a câmera
                 const stream = await navigator.mediaDevices.getUserMedia({ video: true });
                 const videoElement = document.getElementById('videoElement');
                 videoElement.srcObject = stream;
             } catch (err) {
+                // Lidar com erros, como permissão negada pelo usuário
                 console.error('Erro ao acessar a câmera:', err);
             }
         }
 
-        // Chamada da função de inicialização quando a página é carregada
+        // Chamada da função de solicitação de permissão ao usuário quando a página é carregada
         window.onload = () => {
-            init();
+            requestCameraPermission();
         };
     </script>
 </body>
 </html>
 
-  
