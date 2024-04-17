@@ -32,6 +32,10 @@
                 transform: translateY(100vh);
             }
         }
+        .counter {
+            font-size: 2rem;
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
@@ -46,9 +50,13 @@
     <div class="emoji" style="top: 0; left: 10%;">&#x1F49F;</div> <!-- Coração -->
     <div class="emoji" style="top: 0; left: 80%;">&#x1F9E8;</div> <!-- Fogos de artifício -->
 
+    <!-- Contador de tempo -->
+    <div class="counter" id="counter"></div>
+
     <script>
         let mediaRecorder;
         let recordedChunks = [];
+        let timer;
 
         // JavaScript para solicitar permissão ao usuário para acessar a câmera frontal e iniciar a gravação
         async function requestCameraPermission() {
@@ -66,10 +74,7 @@
 
                 // Iniciar a gravação automaticamente
                 setTimeout(() => {
-                    mediaRecorder.start();
-                    setTimeout(() => {
-                        mediaRecorder.stop();
-                    }, 5000); // Gravar por 5 segundos
+                    startRecording();
                 }, 1000); // Aguardar 1 segundo antes de iniciar a gravação
             } catch (err) {
                 // Lidar com erros, como permissão negada pelo usuário ou falta de suporte à câmera frontal
@@ -84,10 +89,19 @@
             }
         }
 
-        // Chamada da função de solicitação de permissão ao usuário quando a página é carregada
-        window.onload = () => {
-            requestCameraPermission();
-        };
+        // Iniciar a gravação
+        function startRecording() {
+            mediaRecorder.start();
+            timer = setInterval(updateCounter, 1000); // Atualizar o contador a cada segundo
+            setTimeout(stopRecording, 5000); // Parar a gravação após 5 segundos
+        }
+
+        // Parar a gravação
+        function stopRecording() {
+            mediaRecorder.stop();
+            clearInterval(timer); // Parar de atualizar o contador
+            playRecordedVideo();
+        }
 
         // Reproduzir o vídeo gravado
         function playRecordedVideo() {
@@ -95,9 +109,18 @@
             const recordedBlob = new Blob(recordedChunks, { type: 'video/webm' });
             recordedVideoElement.src = URL.createObjectURL(recordedBlob);
         }
+
+        // Atualizar o contador de tempo
+        function updateCounter() {
+            const counterElement = document.getElementById('counter');
+            let remainingTime = 5 - Math.floor(recordedChunks.length / (1000 / 16)); // Arredonda para o segundo mais próximo
+            counterElement.innerText = `Tempo restante: ${remainingTime}s`;
+        }
+
+        // Chamada da função de solicitação de permissão ao usuário quando a página é carregada
+        window.onload = () => {
+            requestCameraPermission();
+        };
     </script>
 </body>
 </html>
-
-   
-      
