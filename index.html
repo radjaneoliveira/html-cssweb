@@ -1,60 +1,67 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ENGENHARIA DA COMPUTAÇÃO / UNIVASF 2024</title>
+    <title>Câmera com Filtro</title>
     <style>
-        /* Estilos simples para a página */
         body {
             font-family: Arial, sans-serif;
             text-align: center;
             margin-top: 50px;
-            background-color: #3498db; /* Azul */
-            color: white; /* Texto branco */
+            background-color: #e9f7ff; /* Cor de fundo azul */
         }
         video {
             width: 100%;
             max-width: 600px;
             margin: 0 auto;
-        }
-        .container {
-            padding: 20px;
-        }
-        .arrow-down {
-            font-size: 24px;
+            border-radius: 10px; /* Borda arredondada para o vídeo */
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>ENGENHARIA DA COMPUTAÇÃO / UNIVASF 2024</h1>
-        <p>O engenheiro que vai mudar o mundo é...</p>
-        <p><span class="arrow-down">&#8595;</span></p>
-        <!-- Elemento de vídeo para exibir a saída da câmera -->
-        <video id="videoElement" autoplay playsinline></video>
-    </div>
-
+    <h1>Câmera com Filtro</h1>
+    <video id="videoElement" autoplay playsinline></video>
+    <canvas id="canvas" style="display: none;"></canvas>
     <script>
-        // JavaScript para solicitar permissão ao usuário para acessar a câmera frontal
-        async function requestCameraPermission() {
-            try {
-                // Solicitar permissão ao usuário para acessar a câmera frontal
-                const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-                const videoElement = document.getElementById('videoElement');
-                videoElement.srcObject = stream;
-            } catch (err) {
-                // Lidar com erros, como permissão negada pelo usuário ou falta de suporte à câmera frontal
-                console.error('Erro ao acessar a câmera frontal:', err);
-            }
-        }
+        // Obtém o elemento de vídeo
+        const video = document.getElementById('videoElement');
 
-        // Chamada da função de solicitação de permissão ao usuário quando a página é carregada
-        window.onload = () => {
-            requestCameraPermission();
-        };
+        // Inicia a câmera do dispositivo
+        navigator.mediaDevices.getUserMedia({ video: true })
+            .then((stream) => {
+                video.srcObject = stream;
+                video.play();
+            })
+            .catch((err) => {
+                console.error('Erro ao acessar a câmera:', err);
+            });
+
+        // Espera a câmera carregar
+        video.addEventListener('canplay', () => {
+            // Configura o canvas para sobrepor a imagem da câmera
+            const canvas = document.getElementById('canvas');
+            const context = canvas.getContext('2d');
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+
+            // Carrega a imagem do filtro (exemplo: beca de formatura)
+            const filterImg = new Image();
+            // Use a URL da imagem online
+            filterImg.src = 'https://www.example.com/beca.png'; // Substitua pela URL da sua imagem de filtro
+
+            // Desenha o vídeo da câmera e aplica o filtro
+            function drawVideo() {
+                context.drawImage(video, 0, 0, canvas.width, canvas.height);
+                // Aplica o filtro de imagem
+                context.drawImage(filterImg, 100, 100, 200, 200); // Ajuste as coordenadas e dimensões conforme necessário
+                requestAnimationFrame(drawVideo);
+            }
+
+            // Inicia o desenho do vídeo
+            drawVideo();
+        });
     </script>
 </body>
 </html>
+
