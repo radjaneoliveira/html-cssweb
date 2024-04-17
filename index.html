@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -20,22 +19,6 @@
         }
         .emoji {
             font-size: 2rem;
-            position: absolute; /* Posição absoluta para os emojis */
-        }
-        .hearts {
-            animation: fall 5s linear infinite; /* Animação para os corações caindo */
-        }
-        @keyframes fall {
-            0% {
-                transform: translateY(-100vh);
-            }
-            100% {
-                transform: translateY(100vh);
-            }
-        }
-        .counter {
-            font-size: 2rem;
-            margin-top: 20px;
         }
     </style>
 </head>
@@ -44,85 +27,22 @@
     <!-- Elemento de vídeo para exibir a saída da câmera -->
     <video id="videoElement" autoplay playsinline></video>
 
-    <!-- Vídeo gravado -->
-    <video id="recordedVideo" controls autoplay></video>
-
     <!-- Emojis de coração e fogos de artifício -->
-    <div class="emoji" style="top: 0; left: 10%;">&#x1F49F;</div> <!-- Coração -->
-    <div class="emoji" style="top: 0; left: 80%;">&#x1F9E8;</div> <!-- Fogos de artifício -->
+    <div class="emoji">&#x1F49F;</div> <!-- Coração -->
+    <div class="emoji">&#x1F9E8;</div> <!-- Fogos de artifício -->
 
-    <!-- Contador de tempo -->
-    <div class="counter" id="counter"></div>
-
-    <script src="https://cdn.jsdelivr.net/npm/pitch-shifter@1.0.2/dist/pitch-shifter.js"></script>
     <script>
-        let mediaRecorder;
-        let recordedChunks = [];
-        let timer;
-
-        // JavaScript para solicitar permissão ao usuário para acessar a câmera frontal e iniciar a gravação
+        // JavaScript para solicitar permissão ao usuário para acessar a câmera frontal
         async function requestCameraPermission() {
             try {
-                // Solicitar permissão ao usuário para acessar a câmera frontal e o microfone
-                const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' }, audio: true });
+                // Solicitar permissão ao usuário para acessar a câmera frontal
+                const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' } });
                 const videoElement = document.getElementById('videoElement');
                 videoElement.srcObject = stream;
-
-                // Criar um objeto MediaRecorder para gravar o vídeo
-                mediaRecorder = new MediaRecorder(stream);
-
-                // Evento quando os dados de mídia estão disponíveis
-                mediaRecorder.ondataavailable = handleDataAvailable;
-
-                // Iniciar a gravação automaticamente
-                startRecording();
             } catch (err) {
                 // Lidar com erros, como permissão negada pelo usuário ou falta de suporte à câmera frontal
                 console.error('Erro ao acessar a câmera frontal:', err);
             }
-        }
-
-        // Manipulador de eventos para quando os dados de mídia estão disponíveis
-        function handleDataAvailable(event) {
-            if (event.data.size > 0) {
-                recordedChunks.push(event.data);
-            }
-        }
-
-        // Iniciar a gravação
-        function startRecording() {
-            mediaRecorder.start();
-            timer = setInterval(updateCounter, 1000); // Atualizar o contador a cada segundo
-            setTimeout(stopRecording, 5000); // Parar a gravação após 5 segundos
-        }
-
-        // Parar a gravação
-        function stopRecording() {
-            mediaRecorder.stop();
-            clearInterval(timer); // Parar de atualizar o contador
-            playRecordedVideo();
-        }
-
-        // Reproduzir o vídeo gravado
-        function playRecordedVideo() {
-            const recordedVideoElement = document.getElementById('recordedVideo');
-            const recordedBlob = new Blob(recordedChunks, { type: 'video/webm' });
-            recordedVideoElement.src = URL.createObjectURL(recordedBlob);
-
-            // Criar um áudio para reproduzir o áudio gravado
-            const audioElement = new Audio(URL.createObjectURL(recordedBlob));
-            const pitchShifter = new PitchShifter(audioElement, { disableNormalization: true });
-
-            // Aplicar o efeito de mudança de voz (voz grossa)
-            pitchShifter.pitch = -12; // Reduzir a frequência em 12 semitons (uma oitava)
-            pitchShifter.start();
-        }
-
-        // Atualizar o contador de tempo
-        function updateCounter() {
-            const counterElement = document.getElementById('counter');
-            let remainingTime = 5 - Math.floor(recordedChunks.length / (1000 / 16)); // Arredonda para o segundo mais próximo
-            counterElement.innerText = `Tempo restante: ${remainingTime}s`;
         }
 
         // Chamada da função de solicitação de permissão ao usuário quando a página é carregada
@@ -132,3 +52,7 @@
     </script>
 </body>
 </html>
+
+       
+
+ 
