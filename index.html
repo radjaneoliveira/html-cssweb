@@ -10,57 +10,30 @@
             font-family: Arial, sans-serif;
             text-align: center;
             margin-top: 50px;
-            background-color: #ffcccc; /* Fundo vermelho */
-            overflow: hidden; /* Para esconder os overflow dos corações */
         }
-        h1 {
-            color: #333; /* Cor do título */
-        }
-        #videoContainer {
-            position: relative;
-            width: 80%; /* Reduzindo a largura do vídeo */
-            max-width: 400px;
+        video {
+            width: 100%;
+            max-width: 600px;
             margin: 0 auto;
         }
-        #videoElement {
-            width: 100%;
-            border-radius: 8px; /* Borda arredondada para o vídeo */
-        }
-        .heart {
-            position: absolute;
-            animation: float 3s infinite;
-            color: red; /* Cor vermelha para os corações */
-            font-size: 36px; /* Tamanho maior para os corações */
-        }
-        @keyframes float {
-            0% { transform: translateY(0); }
-            50% { transform: translateY(-40px); }
-            100% { transform: translateY(0); }
-        }
-        .rain {
-            position: absolute;
-            color: red; /* Cor vermelha para o texto */
-            font-size: 24px; /* Tamanho maior para o texto */
-            animation: rainAnimation 5s linear infinite; /* Animação de chuva */
-        }
-        @keyframes rainAnimation {
-            0% { transform: translateY(-100px) rotate(0deg); opacity: 0; }
-            100% { transform: translateY(100vh) rotate(360deg); opacity: 1; }
+        #selectedImage {
+            display: none; /* Esconder a imagem inicialmente */
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px; /* Borda arredondada */
         }
     </style>
 </head>
 <body>
     <h1>ENGENHARIA DA COMPUTAÇÃO / UNIVASF 2024</h1>
-    <div id="videoContainer">
-        <!-- Elemento de vídeo para exibir a saída da câmera frontal -->
-        <video id="videoElement" autoplay playsinline></video>
-        <!-- Corações animados -->
-        <span class="heart" style="top: 10px; left: 10px;">❤️</span>
-        <span class="heart" style="top: 20px; left: 30px;">❤️</span>
-        <span class="heart" style="top: 30px; left: 50px;">❤️</span>
-        <!-- Texto "I love you" chovendo -->
-        <span class="rain">I love you</span>
-    </div>
+    <!-- Elemento de vídeo para exibir a saída da câmera -->
+    <video id="videoElement" autoplay playsinline></video>
+
+    <!-- Botão para permitir que o usuário escolha uma imagem da galeria -->
+    <input type="file" id="imageInput" accept="image/*">
+
+    <!-- Imagem selecionada da galeria -->
+    <img id="selectedImage">
 
     <script>
         // JavaScript para solicitar permissão ao usuário para acessar a câmera frontal
@@ -76,12 +49,21 @@
             }
         }
 
+        // Função para exibir a imagem selecionada
+        function displaySelectedImage(event) {
+            const selectedImage = document.getElementById('selectedImage');
+            selectedImage.src = URL.createObjectURL(event.target.files[0]);
+            selectedImage.style.display = 'block'; // Exibir a imagem
+        }
+
         // Chamada da função de solicitação de permissão ao usuário quando a página é carregada
         window.onload = () => {
             requestCameraPermission();
         };
+
+        // Adicionar um ouvinte de evento para o botão de seleção de imagem
+        const imageInput = document.getElementById('imageInput');
+        imageInput.addEventListener('change', displaySelectedImage);
     </script>
 </body>
 </html>
-
-      
