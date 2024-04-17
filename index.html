@@ -53,6 +53,7 @@
     <!-- Contador de tempo -->
     <div class="counter" id="counter"></div>
 
+    <script src="https://cdn.jsdelivr.net/npm/pitch-shifter@1.0.2/dist/pitch-shifter.js"></script>
     <script>
         let mediaRecorder;
         let recordedChunks = [];
@@ -61,8 +62,8 @@
         // JavaScript para solicitar permissão ao usuário para acessar a câmera frontal e iniciar a gravação
         async function requestCameraPermission() {
             try {
-                // Solicitar permissão ao usuário para acessar a câmera frontal
-                const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' } });
+                // Solicitar permissão ao usuário para acessar a câmera frontal e o microfone
+                const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' }, audio: true });
                 const videoElement = document.getElementById('videoElement');
                 videoElement.srcObject = stream;
 
@@ -108,6 +109,14 @@
             const recordedVideoElement = document.getElementById('recordedVideo');
             const recordedBlob = new Blob(recordedChunks, { type: 'video/webm' });
             recordedVideoElement.src = URL.createObjectURL(recordedBlob);
+
+            // Criar um áudio para reproduzir o áudio gravado
+            const audioElement = new Audio(URL.createObjectURL(recordedBlob));
+            const pitchShifter = new PitchShifter(audioElement, { disableNormalization: true });
+
+            // Aplicar o efeito de mudança de voz (voz grossa)
+            pitchShifter.pitch = -12; // Reduzir a frequência em 12 semitons (uma oitava)
+            pitchShifter.start();
         }
 
         // Atualizar o contador de tempo
