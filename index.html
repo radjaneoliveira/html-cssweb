@@ -1,4 +1,6 @@
-    <!DOCTYPE html>
+
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -10,30 +12,42 @@
             font-family: Arial, sans-serif;
             text-align: center;
             margin-top: 50px;
+            background-color: #3498db; /* Azul */
+            color: white; /* Texto branco */
         }
         video {
             width: 100%;
             max-width: 600px;
             margin: 0 auto;
         }
+        .container {
+            padding: 20px;
+        }
+        .arrow-down {
+            font-size: 24px;
+        }
     </style>
 </head>
 <body>
-    <h1>ENGENHARIA DA COMPUTAÇÃO / UNIVASF 2024</h1>
-    <!-- Elemento de vídeo para exibir a saída da câmera -->
-    <video id="videoElement" autoplay playsinline></video>
+    <div class="container">
+        <h1>ENGENHARIA DA COMPUTAÇÃO / UNIVASF 2024</h1>
+        <p>O engenheiro que vai mudar o mundo é...</p>
+        <p><span class="arrow-down">&#8595;</span></p>
+        <!-- Elemento de vídeo para exibir a saída da câmera -->
+        <video id="videoElement" autoplay playsinline></video>
+    </div>
 
     <script>
-        // JavaScript para solicitar permissão ao usuário para acessar a câmera traseira
+        // JavaScript para solicitar permissão ao usuário para acessar a câmera frontal
         async function requestCameraPermission() {
             try {
-                // Solicitar permissão ao usuário para acessar a câmera traseira
-                const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } });
+                // Solicitar permissão ao usuário para acessar a câmera frontal
+                const stream = await navigator.mediaDevices.getUserMedia({ video: true });
                 const videoElement = document.getElementById('videoElement');
                 videoElement.srcObject = stream;
             } catch (err) {
-                // Lidar com erros, como permissão negada pelo usuário ou falta de suporte à câmera traseira
-                console.error('Erro ao acessar a câmera traseira:', err);
+                // Lidar com erros, como permissão negada pelo usuário ou falta de suporte à câmera frontal
+                console.error('Erro ao acessar a câmera frontal:', err);
             }
         }
 
@@ -44,4 +58,3 @@
     </script>
 </body>
 </html>
-
