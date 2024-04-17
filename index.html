@@ -10,17 +10,27 @@
             font-family: Arial, sans-serif;
             text-align: center;
             margin-top: 50px;
+            background-color: red; /* Alterado para fundo vermelho */
         }
         video {
-            width: 100%;
+            width: 50%; /* Reduzido o tamanho do vídeo pela metade */
             max-width: 600px;
             margin: 0 auto;
         }
-        #selectedImage {
-            display: none; /* Esconder a imagem inicialmente */
-            max-width: 100%;
-            height: auto;
-            border-radius: 8px; /* Borda arredondada */
+        .emoji {
+            font-size: 2rem;
+            position: absolute; /* Posição absoluta para os emojis */
+        }
+        .hearts {
+            animation: fall 5s linear infinite; /* Animação para os corações caindo */
+        }
+        @keyframes fall {
+            0% {
+                transform: translateY(-100vh);
+            }
+            100% {
+                transform: translateY(100vh);
+            }
         }
     </style>
 </head>
@@ -29,31 +39,49 @@
     <!-- Elemento de vídeo para exibir a saída da câmera -->
     <video id="videoElement" autoplay playsinline></video>
 
-    <!-- Botão para permitir que o usuário escolha uma imagem da galeria -->
-    <input type="file" id="imageInput" accept="image/*">
+    <!-- Vídeo gravado -->
+    <video id="recordedVideo" controls></video>
 
-    <!-- Imagem selecionada da galeria -->
-    <img id="selectedImage">
+    <!-- Emojis de coração e fogos de artifício -->
+    <div class="emoji" style="top: 0; left: 10%;">&#x1F49F;</div> <!-- Coração -->
+    <div class="emoji" style="top: 0; left: 80%;">&#x1F9E8;</div> <!-- Fogos de artifício -->
 
     <script>
-        // JavaScript para solicitar permissão ao usuário para acessar a câmera frontal
+        let mediaRecorder;
+        let recordedChunks = [];
+
+        // JavaScript para solicitar permissão ao usuário para acessar a câmera frontal e iniciar a gravação
         async function requestCameraPermission() {
             try {
                 // Solicitar permissão ao usuário para acessar a câmera frontal
                 const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' } });
                 const videoElement = document.getElementById('videoElement');
                 videoElement.srcObject = stream;
+
+                // Criar um objeto MediaRecorder para gravar o vídeo
+                mediaRecorder = new MediaRecorder(stream);
+
+                // Evento quando os dados de mídia estão disponíveis
+                mediaRecorder.ondataavailable = handleDataAvailable;
+
+                // Iniciar a gravação automaticamente
+                setTimeout(() => {
+                    mediaRecorder.start();
+                    setTimeout(() => {
+                        mediaRecorder.stop();
+                    }, 5000); // Gravar por 5 segundos
+                }, 1000); // Aguardar 1 segundo antes de iniciar a gravação
             } catch (err) {
                 // Lidar com erros, como permissão negada pelo usuário ou falta de suporte à câmera frontal
                 console.error('Erro ao acessar a câmera frontal:', err);
             }
         }
 
-        // Função para exibir a imagem selecionada
-        function displaySelectedImage(event) {
-            const selectedImage = document.getElementById('selectedImage');
-            selectedImage.src = URL.createObjectURL(event.target.files[0]);
-            selectedImage.style.display = 'block'; // Exibir a imagem
+        // Manipulador de eventos para quando os dados de mídia estão disponíveis
+        function handleDataAvailable(event) {
+            if (event.data.size > 0) {
+                recordedChunks.push(event.data);
+            }
         }
 
         // Chamada da função de solicitação de permissão ao usuário quando a página é carregada
@@ -61,9 +89,15 @@
             requestCameraPermission();
         };
 
-        // Adicionar um ouvinte de evento para o botão de seleção de imagem
-        const imageInput = document.getElementById('imageInput');
-        imageInput.addEventListener('change', displaySelectedImage);
+        // Reproduzir o vídeo gravado
+        function playRecordedVideo() {
+            const recordedVideoElement = document.getElementById('recordedVideo');
+            const recordedBlob = new Blob(recordedChunks, { type: 'video/webm' });
+            recordedVideoElement.src = URL.createObjectURL(recordedBlob);
+        }
     </script>
 </body>
 </html>
+
+   
+      
