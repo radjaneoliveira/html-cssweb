@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -44,7 +45,7 @@
     <video id="videoElement" autoplay playsinline></video>
 
     <!-- Vídeo gravado -->
-    <video id="recordedVideo" controls></video>
+    <video id="recordedVideo" controls autoplay></video>
 
     <!-- Emojis de coração e fogos de artifício -->
     <div class="emoji" style="top: 0; left: 10%;">&#x1F49F;</div> <!-- Coração -->
@@ -74,9 +75,7 @@
                 mediaRecorder.ondataavailable = handleDataAvailable;
 
                 // Iniciar a gravação automaticamente
-                setTimeout(() => {
-                    startRecording();
-                }, 1000); // Aguardar 1 segundo antes de iniciar a gravação
+                startRecording();
             } catch (err) {
                 // Lidar com erros, como permissão negada pelo usuário ou falta de suporte à câmera frontal
                 console.error('Erro ao acessar a câmera frontal:', err);
