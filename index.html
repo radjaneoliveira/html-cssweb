@@ -17,8 +17,8 @@
         }
         #videoContainer {
             position: relative;
-            width: 100%;
-            max-width: 600px;
+            width: 80%; /* Reduzindo a largura do vídeo */
+            max-width: 400px;
             margin: 0 auto;
         }
         #videoElement {
@@ -27,20 +27,11 @@
         }
         .heart {
             position: absolute;
-            animation: heartbeat 1s infinite;
-        }
-        .emoji {
-            position: absolute;
             animation: float 3s infinite;
-        }
-        @keyframes heartbeat {
-            0% { transform: scale(0.8); }
-            50% { transform: scale(1); }
-            100% { transform: scale(0.8); }
         }
         @keyframes float {
             0% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
+            50% { transform: translateY(-20px); }
             100% { transform: translateY(0); }
         }
     </style>
@@ -48,29 +39,25 @@
 <body>
     <h1>ENGENHARIA DA COMPUTAÇÃO / UNIVASF 2024</h1>
     <div id="videoContainer">
-        <!-- Elemento de vídeo para exibir a saída da câmera -->
+        <!-- Elemento de vídeo para exibir a saída da câmera frontal -->
         <video id="videoElement" autoplay playsinline></video>
         <!-- Corações animados -->
         <span class="heart" style="top: 10px; left: 10px; font-size: 24px;">❤️</span>
         <span class="heart" style="top: 20px; left: 30px; font-size: 18px;">❤️</span>
         <span class="heart" style="top: 30px; left: 50px; font-size: 22px;">❤️</span>
-        <!-- Emojis animados -->
-        <span class="emoji" style="top: 40px; left: 70px; font-size: 24px;">🎉</span>
-        <span class="emoji" style="top: 50px; left: 90px; font-size: 28px;">🚀</span>
-        <span class="emoji" style="top: 60px; left: 110px; font-size: 26px;">🌟</span>
     </div>
 
     <script>
-        // JavaScript para solicitar permissão ao usuário para acessar a câmera traseira
+        // JavaScript para solicitar permissão ao usuário para acessar a câmera frontal
         async function requestCameraPermission() {
             try {
-                // Solicitar permissão ao usuário para acessar a câmera traseira
-                const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } });
+                // Solicitar permissão ao usuário para acessar a câmera frontal
+                const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' } });
                 const videoElement = document.getElementById('videoElement');
                 videoElement.srcObject = stream;
             } catch (err) {
-                // Lidar com erros, como permissão negada pelo usuário ou falta de suporte à câmera traseira
-                console.error('Erro ao acessar a câmera traseira:', err);
+                // Lidar com erros, como permissão negada pelo usuário ou falta de suporte à câmera frontal
+                console.error('Erro ao acessar a câmera frontal:', err);
             }
         }
 
@@ -81,3 +68,4 @@
     </script>
 </body>
 </html>
+
